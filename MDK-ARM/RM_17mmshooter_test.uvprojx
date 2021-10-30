@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>RM_frame</TargetName>
+      <TargetName>RM_17mmshooter_test</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <pCCUsed>5060960::V5.06 update 7 (build 960)::ARMCC</pCCUsed>
@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F427xx,ARM_MATH_CM4,__TARGET_FPU_VFP,__CC_ARM</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;  ../Drivers/STM32F4xx_HAL_Driver/Inc;  ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;  ../Drivers/CMSIS/Device/ST/STM32F4xx/Include;  ../Drivers/CMSIS/Include;  ..\User\Device;  ..\User\Library;  ..\User\Task;  ..\User\Utility;  ..\User\Config;  ..\Drivers\CMSIS\DSP\Include</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;..\User\Device;..\User\Library;..\User\Task;..\User\Utility;..\User\Config;..\Drivers\CMSIS\DSP\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -683,6 +683,11 @@
               <FileType>1</FileType>
               <FilePath>..\User\Task\shooter_task.c</FilePath>
             </File>
+            <File>
+              <FileName>debug_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Task\debug_task.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -698,7 +703,7 @@
       <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="4.3.0" condition="CMSIS Core">
         <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="4.5.0"/>
         <targetInfos>
-          <targetInfo name="RM_frame"/>
+          <targetInfo name="RM_17mmshooter_test"/>
         </targetInfos>
       </component>
     </components>

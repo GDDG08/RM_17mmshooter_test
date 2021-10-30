@@ -1,11 +1,11 @@
 /*
  * @Project      : RM_Infantry_Neptune_frame
- * @FilePath     : \17mm_test\RM_frame\User\Task\debug_task.h
+ * @FilePath     : \RM_17mmshooter_test\User\Task\debug_task.h
  * @Descripttion : 
  * @Author       : GDDG08
  * @Date         : 2021-10-30 10:47:48
  * @LastEditors  : GDDG08
- * @LastEditTime : 2021-10-30 10:52:50
+ * @LastEditTime : 2021-10-30 17:26:08
  */
 
 #ifndef __REMOTE_TASK_H
@@ -24,9 +24,13 @@ extern "C" {
 /* Typedef --------------------------------------------------------------------*/
 
 /* Variables ------------------------------------------------------------------*/
-
+extern TIM_HandleTypeDef* Const_debug_TIMER_HANDLER;
 /* Functions ------------------------------------------------------------------*/
-void Remote_task(void);
+// init
+void Debug_TaskInit(void);
+void Debug_TaskStart(void);
+// callback
+void Debug_TimerCallback(void);
 #ifdef __cplusplus
 }
 #endif

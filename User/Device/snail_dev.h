@@ -1,11 +1,11 @@
 /*
  * @Project      : RM_Infantry_Neptune_frame
- * @FilePath     : \RM_frame\User\Device\snail_dev.h
+ * @FilePath     : \RM_17mmshooter_test\User\Device\snail_dev.h
  * @Descripttion : 
  * @Author       : GDDG08
  * @Date         : 2021-10-04 15:30:27
  * @LastEditors  : GDDG08
- * @LastEditTime : 2021-10-17 16:23:14
+ * @LastEditTime : 2021-10-30 17:25:19
  */
 /**
  * DreamChaser Frame Header File
@@ -26,7 +26,6 @@ extern "C" {
 #include "pid_lib.h"
 #include "pwm_util.h"
 #include "filter_lib.h"
-#include "shooter_task.h"
 /* define ----------------------------------------------------------------------*/
 
 /* Typedef --------------------------------------------------------------------*/

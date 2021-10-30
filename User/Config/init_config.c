@@ -1,3 +1,12 @@
+/*
+ * @Project      : RM_Infantry_Neptune_frame
+ * @FilePath     : \RM_17mmshooter_test\User\Config\init_config.c
+ * @Descripttion : 
+ * @Author       : GDDG08
+ * @Date         : 2021-10-04 15:28:43
+ * @LastEditors  : GDDG08
+ * @LastEditTime : 2021-10-30 17:10:57
+ */
 /**
  * DreamChaser Frame Source File
  * 
@@ -28,9 +37,11 @@ void frameInit(void){
 	
 	// 初始化任务数据
 	Shooter_TaskInit();
+	Debug_TaskInit();
 	
 	// 开启任务
 	Shooter_TaskStart();
+	Debug_TaskStart();
 	// 
 }
 

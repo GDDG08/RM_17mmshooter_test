@@ -64,4 +64,4 @@ rm_frame\callback_config.o: ..\User\Task\shooter_task.h
 rm_frame\callback_config.o: ..\User\Device\motor_dev.h
 rm_frame\callback_config.o: ..\User\Device\snail_dev.h
 rm_frame\callback_config.o: ..\User\Utility\pwm_util.h
-rm_frame\callback_config.o: ..\User\Task\shooter_task.h
+rm_frame\callback_config.o: ..\User\Task\debug_task.h

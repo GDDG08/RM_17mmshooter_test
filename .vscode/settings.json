@@ -7,6 +7,8 @@
         "include_lib.h": "c",
         "shooter_task.h": "c",
         "snail_dev.h": "c",
-        "filter_lib.h": "c"
+        "filter_lib.h": "c",
+        "callback_config.h": "c",
+        "debug_task.h": "c"
     }
 }

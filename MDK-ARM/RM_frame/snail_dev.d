@@ -43,8 +43,3 @@ rm_frame\snail_dev.o: ..\User\Library\mathtools_lib.h
 rm_frame\snail_dev.o: ..\User\Utility\pwm_util.h
 rm_frame\snail_dev.o: ../Core/Inc/tim.h
 rm_frame\snail_dev.o: ../Core/Inc/main.h
-rm_frame\snail_dev.o: ..\User\Task\shooter_task.h
-rm_frame\snail_dev.o: ..\User\Device\motor_dev.h
-rm_frame\snail_dev.o: ../Core/Inc/can.h
-rm_frame\snail_dev.o: ..\User\Utility\can_util.h
-rm_frame\snail_dev.o: ..\User\Device\snail_dev.h

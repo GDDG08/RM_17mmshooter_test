@@ -1,11 +1,11 @@
 /*
  * @Project      : RM_Infantry_Neptune_frame
- * @FilePath     : \RM_frame\User\Config\callback_config.c
+ * @FilePath     : \RM_17mmshooter_test\User\Config\callback_config.c
  * @Descripttion : 
  * @Author       : GDDG08
  * @Date         : 2021-10-04 15:28:43
  * @LastEditors  : GDDG08
- * @LastEditTime : 2021-10-04 17:03:33
+ * @LastEditTime : 2021-10-30 17:33:48
  */
 /**
  * DreamChaser Frame Source File
@@ -17,6 +17,7 @@
  *
  */
 #include "callback_config.h"
+#include "debug_task.h"
 
 /* Functions ------------------------------------------------------------------*/
 /**
@@ -27,6 +28,8 @@
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim) {
     if (htim == Const_shooter_TIMER_HANDLER) {
         Shooter_TimerCallback();
+    } else if (htim == Const_debug_TIMER_HANDLER) {
+        Debug_TimerCallback();
     }
 }
 

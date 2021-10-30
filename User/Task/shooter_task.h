@@ -60,8 +60,9 @@ typedef struct {
 /* Variables ------------------------------------------------------------------*/
 extern TIM_HandleTypeDef* Const_shooter_TIMER_HANDLER;
 extern ShooterMode_Typedef Shooter_Mode;
-//extern MotorSnail_t Motor_Shooter_l;
-//extern MotorSnail_t Motor_Shooter_r;
+extern MotorSnail_t Motor_Shooter_l;
+extern MotorSnail_t Motor_Shooter_r;
+
 /* Functions ------------------------------------------------------------------*/
 // init
 void Shooter_TaskInit(void);

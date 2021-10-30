@@ -1,20 +1,11 @@
 /*
  * @Project      : RM_Infantry_Neptune_frame
- * @FilePath     : \17mm_test\RM_frame\User\Task\shooter_task.c
+ * @FilePath     : \RM_17mmshooter_test\User\Task\shooter_task.c
  * @Descripttion : 
  * @Author       : GDDG08
  * @Date         : 2021-10-04 15:28:43
  * @LastEditors  : GDDG08
- * @LastEditTime : 2021-10-30 10:51:30
- */
-/**
- * DreamChaser Frame Source File
- * 
- * @File:        .c
- * @Brief:       
- * @Author:      Ju	Chaowen
- * @Modified:    
- *
+ * @LastEditTime : 2021-10-30 19:49:34
  */
 
 /* Includes -------------------------------------------------------------------*/
@@ -44,8 +35,8 @@ void Shooter_TaskInit(void) {
 
     // MotorSnailConfig(&Motor_Shooter_l, &htim8, TIM_CHANNEL_1, &htim4, 100);
     // MotorSnailConfig(&Motor_Shooter_r, &htim8, TIM_CHANNEL_2, &htim5, 15.9);
-    MotorSnailConfig(&Motor_Shooter_l, &htim8, TIM_CHANNEL_1, &htim4, 20);
-    MotorSnailConfig(&Motor_Shooter_r, &htim8, TIM_CHANNEL_2, &htim5, 20);
+    MotorSnailConfig(&Motor_Shooter_l, &htim8, TIM_CHANNEL_1, &htim5, 20);
+    MotorSnailConfig(&Motor_Shooter_r, &htim8, TIM_CHANNEL_2, &htim4, 20);
     Motor_Shooter_l.Data.direction = 1;
     Motor_Shooter_r.Data.direction = 0;
     Snail_Start(&Motor_Shooter_l);

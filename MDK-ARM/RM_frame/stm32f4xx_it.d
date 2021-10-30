@@ -65,4 +65,4 @@ rm_frame\stm32f4xx_it.o: ..\User\Task\shooter_task.h
 rm_frame\stm32f4xx_it.o: ..\User\Device\motor_dev.h
 rm_frame\stm32f4xx_it.o: ..\User\Device\snail_dev.h
 rm_frame\stm32f4xx_it.o: ..\User\Utility\pwm_util.h
-rm_frame\stm32f4xx_it.o: ..\User\Task\shooter_task.h
+rm_frame\stm32f4xx_it.o: ..\User\Task\debug_task.h

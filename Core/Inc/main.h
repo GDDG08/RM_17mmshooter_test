@@ -58,10 +58,18 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define BT05_Pin GPIO_PIN_14
+#define BT05_GPIO_Port GPIOG
+#define Dbus_Pin GPIO_PIN_7
+#define Dbus_GPIO_Port GPIOB
+#define DbusB6_Pin GPIO_PIN_6
+#define DbusB6_GPIO_Port GPIOB
 #define Snail_B_Pin GPIO_PIN_6
 #define Snail_B_GPIO_Port GPIOI
 #define Snail_A_Pin GPIO_PIN_5
 #define Snail_A_GPIO_Port GPIOI
+#define BT05G9_Pin GPIO_PIN_9
+#define BT05G9_GPIO_Port GPIOG
 #define Encoder_Rb_Pin GPIO_PIN_13
 #define Encoder_Rb_GPIO_Port GPIOD
 #define Encoder_Lb_Pin GPIO_PIN_1

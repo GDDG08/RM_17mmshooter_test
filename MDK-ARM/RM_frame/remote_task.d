@@ -61,4 +61,3 @@ rm_frame\remote_task.o: ../Core/Inc/can.h
 rm_frame\remote_task.o: ..\User\Utility\can_util.h
 rm_frame\remote_task.o: ..\User\Device\snail_dev.h
 rm_frame\remote_task.o: ..\User\Utility\pwm_util.h
-rm_frame\remote_task.o: ..\User\Task\shooter_task.h

@@ -1,11 +1,11 @@
 /*
  * @Project      : RM_Infantry_Neptune_frame
- * @FilePath     : \RM_frame\User\Config\callback_config.h
+ * @FilePath     : \RM_17mmshooter_test\User\Config\callback_config.h
  * @Descripttion : 
  * @Author       : GDDG08
  * @Date         : 2021-10-04 15:28:43
  * @LastEditors  : GDDG08
- * @LastEditTime : 2021-10-04 16:50:52
+ * @LastEditTime : 2021-10-30 17:06:05
  */
 /**
  * DreamChaser Frame Header File
@@ -28,6 +28,7 @@ extern "C" {
 #include "motor_dev.h"
 #include "remote_task.h"
 #include "shooter_task.h"
+#include "debug_task.h"
 /* define ----------------------------------------------------------------------*/
 
 /* Typedef --------------------------------------------------------------------*/

@@ -54,4 +54,13 @@ rm_frame\init_config.o: ..\User\Task\shooter_task.h
 rm_frame\init_config.o: ..\User\Device\motor_dev.h
 rm_frame\init_config.o: ..\User\Device\snail_dev.h
 rm_frame\init_config.o: ..\User\Utility\pwm_util.h
-rm_frame\init_config.o: ..\User\Task\shooter_task.h
+rm_frame\init_config.o: ..\User\Task\debug_task.h
+rm_frame\init_config.o: ..\User\Device\remote_dev.h
+rm_frame\init_config.o: ..\User\Library\include_lib.h
+rm_frame\init_config.o: ..\User\Library\slope_lib.h
+rm_frame\init_config.o: ..\User\Library\check_lib.h
+rm_frame\init_config.o: ..\User\Library\errorctrl_lib.h
+rm_frame\init_config.o: ..\User\Library\kalman_lib.h
+rm_frame\init_config.o: ..\User\Library\crc_lib.h
+rm_frame\init_config.o: ..\User\Library\list_lib.h
+rm_frame\init_config.o: ..\User\Library\ls_lib.h
