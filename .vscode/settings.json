@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "gimbal_task.h": "c",
+        "motor_dev.h": "c",
+        "remote_task.h": "c",
+        "remote_dev.h": "c",
+        "include_lib.h": "c",
+        "shooter_task.h": "c",
+        "snail_dev.h": "c",
+        "filter_lib.h": "c"
+    }
+}
