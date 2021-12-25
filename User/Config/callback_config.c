@@ -5,7 +5,7 @@
  * @Author       : GDDG08
  * @Date         : 2021-10-04 15:28:43
  * @LastEditors  : GDDG08
- * @LastEditTime : 2021-10-30 17:33:48
+ * @LastEditTime : 2021-12-25 15:39:43
  */
 /**
  * DreamChaser Frame Source File
@@ -17,7 +17,6 @@
  *
  */
 #include "callback_config.h"
-#include "debug_task.h"
 
 /* Functions ------------------------------------------------------------------*/
 /**
@@ -42,6 +41,8 @@ void Uart_RxIdleCallback(UART_HandleTypeDef* huart) {
     if (huart == Const_Remote_UART_HANDLER) {
         Remote_RXCallback(huart);
         Remote_task();
+    } else if (huart == Const_BTlog_UART_HANDLER) {
+        BTlog_RXCallback(huart);
     }
 }
 

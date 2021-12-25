@@ -5,7 +5,7 @@
  * @Author       : GDDG08
  * @Date         : 2021-10-04 15:28:43
  * @LastEditors  : GDDG08
- * @LastEditTime : 2021-10-30 17:06:05
+ * @LastEditTime : 2021-12-25 15:37:57
  */
 /**
  * DreamChaser Frame Header File
@@ -29,6 +29,7 @@ extern "C" {
 #include "remote_task.h"
 #include "shooter_task.h"
 #include "debug_task.h"
+#include "debug_BTlog.h"
 /* define ----------------------------------------------------------------------*/
 
 /* Typedef --------------------------------------------------------------------*/

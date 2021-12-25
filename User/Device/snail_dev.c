@@ -1,21 +1,13 @@
 /*
  * @Project      : RM_Infantry_Neptune_frame
- * @FilePath     : \RM_frame\User\Device\snail_dev.c
+ * @FilePath     : \RM_17mmshooter_test\User\Device\snail_dev.c
  * @Descripttion : 
  * @Author       : GDDG08
  * @Date         : 2021-10-04 15:30:27
  * @LastEditors  : GDDG08
- * @LastEditTime : 2021-10-17 16:31:07
+ * @LastEditTime : 2021-11-20 16:43:11
  */
-/**
- * DreamChaser Frame Source File
- * 
- * @File:        .c
- * @Brief:       
- * @Author:      Peng Huishuai
- * @Modified:    
- *
- */
+
 #include "snail_dev.h"
 
 /**
@@ -64,8 +56,8 @@ void SnailPIDOutput(MotorSnail_t* snail) {
     SetSnailOutput(snail);
 }
 
-void SnailnoPIDOutput(MotorSnail_t* snail) {
-    float duty = snail->PID.ref * 0.00011136f + 0.47522f;
+void SnailNoPIDOutput(MotorSnail_t* snail) {
+    float duty = snail->PID.ref * 0.00013036f + 0.48522f;
     if (duty < 0.5f)
         duty = 0.5f;
     if (duty > 0.98f)

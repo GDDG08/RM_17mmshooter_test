@@ -1,11 +1,11 @@
 /*
  * @Project      : RM_Infantry_Neptune_frame
- * @FilePath     : \RM_frame\User\Task\remote_task.c
+ * @FilePath     : \RM_17mmshooter_test\User\Task\remote_task.c
  * @Descripttion : 
  * @Author       : GDDG08
  * @Date         : 2021-10-04 15:28:43
  * @LastEditors  : GDDG08
- * @LastEditTime : 2021-10-09 16:42:18
+ * @LastEditTime : 2021-11-20 16:06:47
  */
 /**
  * DreamChaser Frame Source File
@@ -41,7 +41,7 @@ void Remote_task(void) {
             break;
         case Remote_SWITCH_DOWN:
             shooter->shooter_speed = Shooter_30mpers;
-            shooter->feeder_speed = Feeder_SlowSpeed;
+            shooter->feeder_speed = Feeder_FastSpeed;
             break;
         default:
             shooter->shooter_speed = 0.0f;
@@ -67,10 +67,12 @@ void Remote_task(void) {
             shooter->feeder_speed = 0.0f;
             break;
     }
-    if (-rc->remote.ch[2] > 500.0f && shooter->single_shoot_done == 2) {
-        shooter->single_shoot_done = 0;
-    } else if (shooter->single_shoot_done == 1 && -rc->remote.ch[2] < 400.0f) {
-        shooter->single_shoot_done = 2;
+    if (rc->remote.sl == Remote_SWITCH_MIDDLE) {
+        if (-rc->remote.ch[2] > 500.0f && shooter->single_shoot_done == 2) {
+            shooter->single_shoot_done = 0;
+        } else if (shooter->single_shoot_done == 1 && -rc->remote.ch[2] < 400.0f) {
+            shooter->single_shoot_done = 2;
+        }
     }
 
     if (-rc->remote.ch[2] < -500.0f && shooter->openloop_set_done == 2) {

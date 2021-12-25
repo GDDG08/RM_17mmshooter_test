@@ -1,11 +1,11 @@
 /*
  * @Project      : RM_Infantry_Neptune_frame
- * @FilePath     : \17mm_test\RM_frame\User\Task\shooter_task.h
+ * @FilePath     : \RM_17mmshooter_test\User\Task\shooter_task.h
  * @Descripttion : 
  * @Author       : GDDG08
  * @Date         : 2021-10-04 15:28:43
  * @LastEditors  : GDDG08
- * @LastEditTime : 2021-10-30 10:51:52
+ * @LastEditTime : 2021-12-25 16:07:59
  */
 /**
  * DreamChaser Frame Header File
@@ -32,7 +32,7 @@ extern "C" {
 #define Shooter_18mpers 230.0f
 #define Shooter_30mpers 280.0f
 
-#define Feeder_SlowSpeed 30.0f
+#define Feeder_SlowSpeed 50.0f
 #define Feeder_FastSpeed 100.0f
 #define Feeder_WaitSpeed 10.0f
 
@@ -60,6 +60,7 @@ typedef struct {
 /* Variables ------------------------------------------------------------------*/
 extern TIM_HandleTypeDef* Const_shooter_TIMER_HANDLER;
 extern ShooterMode_Typedef Shooter_Mode;
+extern Motor_t Motor_Feeder;
 extern MotorSnail_t Motor_Shooter_l;
 extern MotorSnail_t Motor_Shooter_r;
 

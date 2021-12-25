@@ -5,18 +5,18 @@
  * @Author       : GDDG08
  * @Date         : 2021-10-30 10:47:48
  * @LastEditors  : GDDG08
- * @LastEditTime : 2021-10-30 17:26:08
+ * @LastEditTime : 2021-12-25 16:02:57
  */
 
-#ifndef __REMOTE_TASK_H
-#define __REMOTE_TASK_H
+#ifndef __DEBUG_TASK_H
+#define __DEBUG_TASK_H
 #ifdef __cplusplus
 extern "C" {
 #endif
 /* Includes -------------------------------------------------------------------*/
-#include "remote_dev.h"
 #include "include_lib.h"
-#include "shooter_task.h"
+#include "debug_BTlog.h"
+
 /* Const ----------------------------------------------------------------------*/
 
 /* define ---------------------------------------------------------------------*/

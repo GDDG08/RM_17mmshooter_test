@@ -5,7 +5,7 @@
  * @Author       : GDDG08
  * @Date         : 2021-10-04 15:28:43
  * @LastEditors  : GDDG08
- * @LastEditTime : 2021-10-30 17:19:54
+ * @LastEditTime : 2021-12-25 15:40:15
  */
 
 /* Includes -------------------------------------------------------------------*/
@@ -17,6 +17,7 @@ TIM_HandleTypeDef* Const_debug_TIMER_HANDLER = &htim3;
 /* Functions ------------------------------------------------------------------*/
 
 void Debug_TaskInit(void) {
+    BTlog_Init();
 }
 
 void Debug_TaskStart(void) {
@@ -24,13 +25,7 @@ void Debug_TaskStart(void) {
 }
 
 void Debug_task(void) {
-    uint8_t msg[] = "\r\n******UART commucition using IT******\r\nPlease enter 10 characters:\r\n";\
-
-    Remote_RemoteDataTypeDef* rc = &Remote_RemoteData;
-    ShooterMode_Typedef* shooter = &Shooter_Mode;
-    // Motor_Shooter_l;
-
-    HAL_UART_Transmit_IT(&huart6 ,(uint8_t*)msg,sizeof(msg));
+    BTlog_Send();
 }
 
 void Debug_TimerCallback() {

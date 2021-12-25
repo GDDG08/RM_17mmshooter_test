@@ -5,7 +5,7 @@
  * @Author       : GDDG08
  * @Date         : 2021-10-04 15:28:43
  * @LastEditors  : GDDG08
- * @LastEditTime : 2021-10-30 20:26:45
+ * @LastEditTime : 2021-11-20 16:09:48
  */
 
 /* Includes -------------------------------------------------------------------*/
@@ -48,8 +48,8 @@ void Shooter_TaskInit(void) {
     PID_ParamInit(&Motor_Shooter_l.PIDpara, 18, 0.1, 10, 10000, 20000);
     PID_ParamInit(&Motor_Shooter_r.PIDpara, 18, 0.1, 10, 10000, 20000);
 
-    PID_ParamInit(&Motor_Feeder.pid_param[0], 500, 0.01, 0, 10000, 10000);
-    PID_ParamInit(&Motor_Feeder.pid_param[1], 40, 0, 0.11, 10000, 10000);
+    PID_ParamInit(&Motor_Feeder.pid_param[0], 750, 0.01, 0, 10000, 20000);
+    PID_ParamInit(&Motor_Feeder.pid_param[1], 8.35, 0, 0.11, 10000, 20000);
 
     // low_pass_filter_init(&FilterParam_Feeder, -1);
 }
@@ -79,8 +79,8 @@ void Shooter_TimerCallback() {
         SnailPIDOutput(&Motor_Shooter_l);
         SnailPIDOutput(&Motor_Shooter_r);
     } else {
-        SnailnoPIDOutput(&Motor_Shooter_l);
-        SnailnoPIDOutput(&Motor_Shooter_r);
+        SnailNoPIDOutput(&Motor_Shooter_l);
+        SnailNoPIDOutput(&Motor_Shooter_r);
     }
 
     //Feeder 2006
@@ -88,7 +88,6 @@ void Shooter_TimerCallback() {
     PID_SetFdb(&Motor_Feeder.pid[1], (float)Motor_Feeder.encoder.consequent_angle);
 
     PID_SetRef(&Motor_Feeder.pid[0], Shooter_Mode.feeder_speed);
-    // PID_SetRef(&Motor_Feeder.pid[1], (float)Motor_Feeder.encoder.consequent_angle);
 
     if (Shooter_Mode.shooter_mode == Shooter_IDLE) {
         if (Shooter_Mode.single_shoot_done == 0) {  // not shoot yet
