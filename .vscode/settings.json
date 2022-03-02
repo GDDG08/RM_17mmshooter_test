@@ -10,6 +10,8 @@
         "filter_lib.h": "c",
         "callback_config.h": "c",
         "debug_task.h": "c",
-        "debug_btlog.h": "c"
+        "debug_btlog.h": "c",
+        "xlocale": "c",
+        "xstring": "c"
     }
 }

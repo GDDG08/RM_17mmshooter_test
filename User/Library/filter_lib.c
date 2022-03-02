@@ -1,11 +1,11 @@
 /*
  * @Project      : RM_Infantry_Neptune_frame
- * @FilePath     : \RM_frame\User\Library\filter_lib.c
+ * @FilePath     : \RM_17mmshooter_test\User\Library\filter_lib.c
  * @Descripttion : 
  * @Author       : GDDG08
  * @Date         : 2021-10-04 15:28:43
  * @LastEditors  : GDDG08
- * @LastEditTime : 2021-10-06 09:49:55
+ * @LastEditTime : 2022-01-15 12:01:23
  */
 /**
  * DreamChaser Frame Source File
@@ -30,13 +30,13 @@ void low_pass_filter_init(low_pass_t* filt, float cutoff_frq) {
     filt->filted_last_val = 0;
 }
 
- float low_pass_filter(float val, low_pass_t* filt) {
-     float para;
-     para = 2 * PI * 0.001f * (filt->cutoff_frq);
-     filt->filted_val = para * val + (1 - para) * filt->filted_last_val;
-     filt->filted_last_val = filt->filted_val;
-     return filt->filted_val;
- }
+float low_pass_filter(float val, low_pass_t* filt) {
+    float para;
+    para = 2 * PI * 0.001f * (filt->cutoff_frq);
+    filt->filted_val = para * val + (1 - para) * filt->filted_last_val;
+    filt->filted_last_val = filt->filted_val;
+    return filt->filted_val;
+}
 
 //float low_pass_filter(float val, low_pass_param_t* pparam, low_pass_t* filt) {
 //    // calculate cut off frequence

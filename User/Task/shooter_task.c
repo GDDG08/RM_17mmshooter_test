@@ -5,7 +5,7 @@
  * @Author       : GDDG08
  * @Date         : 2021-10-04 15:28:43
  * @LastEditors  : GDDG08
- * @LastEditTime : 2021-11-20 16:09:48
+ * @LastEditTime : 2022-01-15 15:53:51
  */
 
 /* Includes -------------------------------------------------------------------*/
@@ -20,6 +20,12 @@ Motor_Group_t* Motor_feederMotors;
 MotorSnail_t Motor_Shooter_l;
 MotorSnail_t Motor_Shooter_r;
 
+PID_PIDTypeDef ShooterDiff_pid;
+PID_PIDParamTypeDef ShooterDiff_param;
+ave_filter_t ShooterDiff_fdb_fil;
+
+float Shooter_speed_offset_remote[2] = {0.0f, 0.0f};
+
 /* Functions ------------------------------------------------------------------*/
 /**
  * @brief 	
@@ -27,7 +33,8 @@ MotorSnail_t Motor_Shooter_r;
  * @retval	None
  * @note	None
  */
-
+float buff0[2][20];
+float buff1[500];
 void Shooter_TaskInit(void) {
     Shooter_Mode.single_shoot_done = 2;
     Shooter_Mode.openloop_set_done = 2;
@@ -35,8 +42,8 @@ void Shooter_TaskInit(void) {
 
     // MotorSnailConfig(&Motor_Shooter_l, &htim8, TIM_CHANNEL_1, &htim4, 100);
     // MotorSnailConfig(&Motor_Shooter_r, &htim8, TIM_CHANNEL_2, &htim5, 15.9);
-    MotorSnailConfig(&Motor_Shooter_l, &htim8, TIM_CHANNEL_1, &htim5, 20);
-    MotorSnailConfig(&Motor_Shooter_r, &htim8, TIM_CHANNEL_2, &htim4, 20);
+    MotorSnailConfig(&Motor_Shooter_l, &htim8, TIM_CHANNEL_1, &htim5, 10, buff0[0]);
+    MotorSnailConfig(&Motor_Shooter_r, &htim8, TIM_CHANNEL_2, &htim4, 10, buff0[1]);
     Motor_Shooter_l.Data.direction = 1;
     Motor_Shooter_r.Data.direction = 0;
     Snail_Start(&Motor_Shooter_l);
@@ -45,12 +52,21 @@ void Shooter_TaskInit(void) {
     Motor_Config(&Motor_Feeder, &hcan1, MOTOR_2006, 4, MOTOR_TYPE_FEEDER, MOTOR_PID_SPEED, MOTOR_DIR_CCW);
     Motor_feederMotors = Motor_GetGroupPtr(&hcan1, Motor_GetMotorTXID(&Motor_Feeder));
 
-    PID_ParamInit(&Motor_Shooter_l.PIDpara, 18, 0.1, 10, 10000, 20000);
-    PID_ParamInit(&Motor_Shooter_r.PIDpara, 18, 0.1, 10, 10000, 20000);
+    // PID_ParamInit(&Motor_Shooter_l.PIDpara, 0.7, 0.01, 6, 10000, 20000);
+    // PID_ParamInit(&Motor_Shooter_r.PIDpara, 0.7, 0.01, 6, 10000, 20000);
+    // PID_ParamInit(&Motor_Shooter_l.PIDpara, 0.9, 0.005, 3, 10000, 20000);
+    // PID_ParamInit(&Motor_Shooter_r.PIDpara, 0.9, 0.005, 3, 10000, 20000);
+    PID_ParamInit(&Motor_Shooter_l.PIDpara, 1.2, 0.003, 3, 10000, 20000);
+    PID_ParamInit(&Motor_Shooter_r.PIDpara, 1.2, 0.003, 3, 10000, 20000);
+    //TODO:测试DIFF PID，偏置，多pidPara
 
     PID_ParamInit(&Motor_Feeder.pid_param[0], 750, 0.01, 0, 10000, 20000);
     PID_ParamInit(&Motor_Feeder.pid_param[1], 8.35, 0, 0.11, 10000, 20000);
 
+    PID_ParamInit(&ShooterDiff_param, 14, 0.3, 0, 5, 12);
+    PID_SetRef(&ShooterDiff_pid, 0.0f);
+
+    ave_slide_filter_init(&ShooterDiff_fdb_fil, 500, buff1);
     // low_pass_filter_init(&FilterParam_Feeder, -1);
 }
 
@@ -63,7 +79,7 @@ void Shooter_TaskStart(void) {
   * @param      
   * @retval     
   */
-float shooter_speed = 4.0f;
+float Shooter_speed_offset[3][2] = {{0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f}};  //{{0.71f, 0.208f}, {0.0f, 1.308f}, {-1.2119f, 5.652f}};
 void Shooter_TimerCallback() {
     if (Shooter_Mode.openloop_set_done == 0) {
         Shooter_Mode.openloop_mode = Shooter_Mode.openloop_mode == OpenLoop_open ? OpenLoop_closed : OpenLoop_open;
@@ -71,8 +87,18 @@ void Shooter_TimerCallback() {
     }
     MotorSnail_SetFdb(&Motor_Shooter_l);
     MotorSnail_SetFdb(&Motor_Shooter_r);
-    MotorSnail_SetRef(&Motor_Shooter_l, shooter_speed * Shooter_Mode.shooter_speed);
-    MotorSnail_SetRef(&Motor_Shooter_r, shooter_speed * Shooter_Mode.shooter_speed);
+    //for encoder test
+    Motor_Shooter_r.PID.fdb *= 2;
+
+    PID_SetFdb(&ShooterDiff_pid, ave_slide_filter(Motor_Shooter_l.PID.fdb - Motor_Shooter_r.PID.fdb, &ShooterDiff_fdb_fil));  // Motor_Shooter_l.PID.fdb - Motor_Shooter_r.PID.fdb);
+    PID_Calc(&ShooterDiff_pid, &ShooterDiff_param);
+    if (Shooter_Mode.openloop_mode == OpenLoop_closed && Shooter_Mode.shooter_speed_l > 0 && Shooter_Mode.shooter_speed_r > 0) {
+        MotorSnail_SetRef(&Motor_Shooter_l, Shooter_Mode.shooter_speed_l + PID_GetOutput(&ShooterDiff_pid) + Shooter_speed_offset_remote[0]);
+        MotorSnail_SetRef(&Motor_Shooter_r, Shooter_Mode.shooter_speed_r - PID_GetOutput(&ShooterDiff_pid) + Shooter_speed_offset_remote[1]);
+    } else {
+        MotorSnail_SetRef(&Motor_Shooter_l, Shooter_Mode.shooter_speed_l);
+        MotorSnail_SetRef(&Motor_Shooter_r, Shooter_Mode.shooter_speed_r);
+    }
     // MotorSnail_SetRef(&Motor_Shooter_l, Shooter_Mode.shooter_speed);
     // MotorSnail_SetRef(&Motor_Shooter_r, Shooter_Mode.shooter_speed);
     if (Shooter_Mode.openloop_mode == OpenLoop_closed) {
@@ -81,6 +107,8 @@ void Shooter_TimerCallback() {
     } else {
         SnailNoPIDOutput(&Motor_Shooter_l);
         SnailNoPIDOutput(&Motor_Shooter_r);
+        // SnailDutyOutput(&Motor_Shooter_l, Shooter_speed_offset_remote[0]);
+        // SnailDutyOutput(&Motor_Shooter_r, Shooter_speed_offset_remote[1]);
     }
 
     //Feeder 2006

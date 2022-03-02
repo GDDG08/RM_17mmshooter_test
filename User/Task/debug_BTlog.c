@@ -5,7 +5,7 @@
  * @Author       : GDDG08
  * @Date         : 2021-10-31 09:16:32
  * @LastEditors  : GDDG08
- * @LastEditTime : 2021-12-25 18:59:46
+ * @LastEditTime : 2022-01-15 11:19:55
  */
 
 #include "debug_BTlog.h"
@@ -28,7 +28,7 @@ const uint8_t Const_BTlog_ID = 0x03;
 * TODO: 
 *   change send break for logging rate
 */
-const uint32_t Const_BTlog_HEART_SENT_PERIOD = 10;  // (ms)
+const uint32_t Const_BTlog_HEART_SENT_PERIOD = 4;  // (ms)
 const uint16_t Const_BTlog_RX_BUFF_LEN_MAX = 5000;
 const uint16_t Const_BTlog_TX_BUFF_LEN_MAX = 5000;
 const uint16_t Const_BTlog_RX_DATA_LEN_MAX = 50;
@@ -110,6 +110,10 @@ void BTlog_Init() {
     ADD_SEND_DATA(shooter->openloop_mode, uInt8, "NoPID");
     ADD_SEND_DATA(shooter_l->PID.fdb, Float, "ShooterL_spd");
     ADD_SEND_DATA(shooter_r->PID.fdb, Float, "ShooterR_spd");
+    ADD_SEND_DATA(ShooterDiff_pid.output, Float, "ShooterDiff_output");
+
+    ADD_SEND_DATA(feeder->output, Float, "Feeder_output");
+    ADD_SEND_DATA(feeder->pid[0].fdb, Float, "Feeder_spd");
     //Customize Remote Control Receive
 
     /*
@@ -167,6 +171,8 @@ const uint8_t CMD_START_SENDING = 0xF1;
 const uint8_t CMD_STOP_SENDING = 0xF2;
 // const uint8_t CMD_SET_GYRO_COMPENSATE = 0xA0;
 const uint8_t CMD_SET_CUSTOMIZE = 0xA5;
+const uint8_t CMD_SET_MOTOR_BAIS = 0xA8;
+const uint8_t CMD_SET_MOTOR_PID = 0xA9;
 
 /**
  * @name: DECODE
@@ -219,6 +225,32 @@ void BTlog_DecodeData(uint8_t* BTlog_RxData, uint16_t rxdatalen) {
                     cur_pos += size;
                 }
             }
+        } else if (BTlog_RxData[0] == CMD_SET_MOTOR_BAIS) {
+            // Shooter_speed_offset_remote[0] = buff2float(BTlog_RxData + 1);
+            // Shooter_speed_offset_remote[1] = buff2float(BTlog_RxData + 5);
+
+            PID_duty_offset[0] = buff2float(BTlog_RxData + 1);
+            PID_duty_offset[1] = buff2float(BTlog_RxData + 5);
+
+            // Shooter_speed_offset[0][0] = buff2float(BTlog_RxData + 1);
+            // Shooter_speed_offset[0][1] = buff2float(BTlog_RxData + 5);
+            // Shooter_speed_offset[0][2] = buff2float(BTlog_RxData + 9);
+            // Shooter_speed_offset[1][0] = buff2float(BTlog_RxData + 13);
+            // Shooter_speed_offset[1][1] = buff2float(BTlog_RxData + 17);
+            // Shooter_speed_offset[1][2] = buff2float(BTlog_RxData + 21);
+        } else if (BTlog_RxData[0] == CMD_SET_MOTOR_PID) {
+            // Motor_Shooter_l.PIDpara.kp = buff2float(BTlog_RxData + 1);
+            // Motor_Shooter_l.PIDpara.ki = buff2float(BTlog_RxData + 5);
+            // Motor_Shooter_l.PIDpara.kd = buff2float(BTlog_RxData + 9);
+            // Motor_Shooter_l.PIDpara.output_max = buff2float(BTlog_RxData + 13);
+            // Motor_Shooter_r.PIDpara.kp = buff2float(BTlog_RxData + 17);
+            // Motor_Shooter_r.PIDpara.ki = buff2float(BTlog_RxData + 21);
+            // Motor_Shooter_r.PIDpara.kd = buff2float(BTlog_RxData + 25);
+            // Motor_Shooter_r.PIDpara.output_max = buff2float(BTlog_RxData + 29);
+            ShooterDiff_param.kp = buff2float(BTlog_RxData + 33);
+            ShooterDiff_param.ki = buff2float(BTlog_RxData + 37);
+            ShooterDiff_param.kd = buff2float(BTlog_RxData + 41);
+            // ShooterDiff_param.output_max = buff2float(BTlog_RxData + 45);
         }
     }
 }

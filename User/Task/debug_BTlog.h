@@ -5,7 +5,7 @@
  * @Author       : GDDG08
  * @Date         : 2021-10-31 09:17:07
  * @LastEditors  : GDDG08
- * @LastEditTime : 2021-12-25 16:03:01
+ * @LastEditTime : 2022-01-12 15:28:35
  */
 #ifndef DEBUG_BTLOG_H
 #define DEBUG_BTLOG_H
@@ -16,6 +16,7 @@ extern "C" {
 
 #include "uart_util.h"
 #include "shooter_task.h"
+#include "remote_task.h"
 
 typedef enum {
     BYTE = 0u,

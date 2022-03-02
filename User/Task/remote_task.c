@@ -5,7 +5,7 @@
  * @Author       : GDDG08
  * @Date         : 2021-10-04 15:28:43
  * @LastEditors  : GDDG08
- * @LastEditTime : 2021-11-20 16:06:47
+ * @LastEditTime : 2022-01-12 22:02:34
  */
 /**
  * DreamChaser Frame Source File
@@ -24,6 +24,7 @@
  * @retval	None
  * @note	None
  */
+
 void Remote_task(void) {
     Remote_RemoteDataTypeDef* rc = &Remote_RemoteData;
     rc->pengding = 1;
@@ -32,26 +33,31 @@ void Remote_task(void) {
 
     switch (rc->remote.sr) {
         case Remote_SWITCH_UP:
-            shooter->shooter_speed = Shooter_15mpers;
+            shooter->shooter_speed_l = Shooter_15mpers + Shooter_speed_offset[0][0];
+            shooter->shooter_speed_r = Shooter_15mpers + Shooter_speed_offset[0][1];
             shooter->feeder_speed = Feeder_SlowSpeed;
             break;
         case Remote_SWITCH_MIDDLE:
-            shooter->shooter_speed = Shooter_18mpers;
+            shooter->shooter_speed_l = Shooter_18mpers + Shooter_speed_offset[1][0];
+            shooter->shooter_speed_r = Shooter_18mpers + Shooter_speed_offset[1][1];
             shooter->feeder_speed = Feeder_SlowSpeed;
             break;
         case Remote_SWITCH_DOWN:
-            shooter->shooter_speed = Shooter_30mpers;
+            shooter->shooter_speed_l = Shooter_30mpers + Shooter_speed_offset[2][0];
+            shooter->shooter_speed_r = Shooter_30mpers + Shooter_speed_offset[2][1];
             shooter->feeder_speed = Feeder_FastSpeed;
             break;
         default:
-            shooter->shooter_speed = 0.0f;
+            shooter->shooter_speed_l = 0.0f;
+            shooter->shooter_speed_r = 0.0f;
             shooter->feeder_speed = 0.0f;
             break;
     }
     switch (rc->remote.sl) {
         case Remote_SWITCH_UP:
             shooter->shooter_mode = Shooter_STOP;
-            shooter->shooter_speed = 0.0f;
+            shooter->shooter_speed_l = 0.0f;
+            shooter->shooter_speed_r = 0.0f;
             shooter->feeder_speed = 0.0f;
             break;
         case Remote_SWITCH_MIDDLE:
@@ -63,7 +69,8 @@ void Remote_task(void) {
             break;
         default:
             shooter->shooter_mode = Shooter_NULL;
-            shooter->shooter_speed = 0.0f;
+            shooter->shooter_speed_l = 0.0f;
+            shooter->shooter_speed_r = 0.0f;
             shooter->feeder_speed = 0.0f;
             break;
     }

@@ -5,7 +5,7 @@
  * @Author       : GDDG08
  * @Date         : 2021-10-04 15:30:27
  * @LastEditors  : GDDG08
- * @LastEditTime : 2021-11-20 16:09:43
+ * @LastEditTime : 2022-01-15 15:12:18
  */
 /**
  * DreamChaser Frame Header File
@@ -50,13 +50,14 @@ typedef struct
 } MotorSnail_t;
 
 /* Variables ------------------------------------------------------------------*/
-
+extern float PID_duty_offset[];
 /* Functions ------------------------------------------------------------------*/
-void MotorSnailConfig(MotorSnail_t* snail, TIM_HandleTypeDef* PwmTIMHandle, int PWMchannel, TIM_HandleTypeDef* EncoderTIMHandle, uint8_t bufflen);
+void MotorSnailConfig(MotorSnail_t* snail, TIM_HandleTypeDef* PwmTIMHandle, int PWMchannel, TIM_HandleTypeDef* EncoderTIMHandle, uint8_t bufflen, float* buff);
 void SetSnailDuty(MotorSnail_t* snail, float duty);
 void SetSnailOutput(MotorSnail_t* snail);
 void SnailPIDOutput(MotorSnail_t* snail);
 void SnailNoPIDOutput(MotorSnail_t* snail);
+void SnailDutyOutput(MotorSnail_t* snail, float duty);
 void MotorSnail_SetRef(MotorSnail_t* snail, float ref);
 void MotorSnail_SetFdb(MotorSnail_t* snail);
 void Snail_Start(MotorSnail_t* snail);
